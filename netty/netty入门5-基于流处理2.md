@@ -19,7 +19,7 @@ public class TimeDecoder extends ReplayingDecoder<Void> {
 }
 </pre>
 
-把一整个ChannelHandler拆分成多个模块以减少应用的复杂程度，比如把TimeClientHandler拆分成2个处理器：<br>
+ 把一整个ChannelHandler拆分成多个模块以减少应用的复杂程度，比如把TimeClientHandler拆分成2个处理器：<br>
 1,TimeDecoder处理数据拆分的问题<br>
 2,TimeClientHandler原始版本的实现<br>
 Netty提供了一个可扩展的类，可以完成TimeDecoder的开发。<br>
@@ -34,7 +34,6 @@ public class TimeDecoder extends ByteToMessageDecoder { // (1)
   }
 }
 </pre>
-
 1.ByteToMessageDecoder是ChannelInboundHandler的一个实现类，他可以在处理数据拆分的问题上变得很简单。<br>
 2.每当有新数据接收的时候ByteToMessageDecoder都会调用decode()方法来处理内部的那个累积缓冲。<br>
 3.Decode()方法可以决定当累积缓冲里没有足够数据时,可以往out对象里放任意数据。<br>
