@@ -1,6 +1,6 @@
 ##基于流的处理
 
-The First Solution
+*The First Solution*
 最简单的方案是构造一个内部的可积累的缓冲，直到4个字节全部接收到了内部缓冲。下面的代码修改了 TimeClientHandler 的实现类修复了这个问题
 <pre>
 ublic class TimeClientHandler extends ChannelInboundHandlerAdapter {
