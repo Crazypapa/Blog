@@ -1,8 +1,8 @@
 #### The Second Solution
 <pre>
 public class TimeDecoder extends ByteToMessageDecoder{ //(1)
-  @Override
-  protected void decode(){ //(2)
+@Override
+protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out){ //(2)
       if (in.readableBytes() < 4) {
         return; //(3)
       }
