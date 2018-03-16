@@ -1,4 +1,4 @@
-**The Second Solution**<br>
+####The Second Solution
 现在将另外一个处理器插入到ChannelPipeline 里，应该在TimeClient里修改ChannelInitializer 的实现：<br>
 <pre>
 b.handler(new ChannelInitializer<SocketChannel>() {
