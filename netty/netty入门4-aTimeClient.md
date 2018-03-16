@@ -56,3 +56,4 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
   }
 }
 </pre>
+1.在TCP/IP中，Netty 会把读到的数据放到 ByteBuf 的数据结构中。
