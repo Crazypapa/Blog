@@ -37,7 +37,7 @@ ublic class TimeClientHandler extends ChannelInboundHandlerAdapter {
 3.然后，处理器必须检查buf变量是否有足够的数据，在这个例子中是4个字节，然后处理实际的业务逻辑。<br>
 否则，Netty会重复调用channelRead()当有更多数据到达直到4个字节的数据被积累。<br>
 
-#### The Second Solution
+### The Second Solution
 把一整个ChannelHandler拆分成多个模块以减少应用的复杂程度，比如把TimeClientHandler拆分成2个处理器：<br>
 1,TimeDecoder处理数据拆分的问题<br>
 2,TimeClientHandler原始版本的实现<br>
