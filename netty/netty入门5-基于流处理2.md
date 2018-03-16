@@ -1,6 +1,6 @@
 #### The Second Solution
 <pre>
-public class TimeDecoder extends ByteToMessageDecoder{ //1
+public class TimeDecoder extends ByteToMessageDecoder{ //(1)
 </pre>
 
 把一整个ChannelHandler拆分成多个模块以减少应用的复杂程度，比如把TimeClientHandler拆分成2个处理器：<br>
