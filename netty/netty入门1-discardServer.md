@@ -4,9 +4,7 @@ import io.netty.buffer.ByteBuf;<br>
 import io.netty.channel.ChannelHandlerContext;<br>
 import io.netty.channel.ChannelInboundHandlerAdapter;<br>
 
-/**
-* 处理服务端 channel.
-*/
+/**处理服务端channel.**/<br>
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)<br>
   @Override<br>
   public void channelRead(ChannelHandlerContext ctx, Object msg) { // (2)<br>
