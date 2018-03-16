@@ -7,5 +7,6 @@
 **2**：[netty入门2-anEchoServer](https://github.com/Crazypapa/Blog/blob/master/netty/netty入门2-anEchoServer.md)<br>
 **3**：[netty入门3-aTimeServer](https://github.com/Crazypapa/Blog/blob/master/netty/netty入门3-aTimeServer.md)<br>
 **4**：[netty入门4-aTimeClient](https://github.com/Crazypapa/Blog/blob/master/netty/netty入门4-aTimeClient.md)<br>
+**5**：[netty入门5-基于流的处理](https://github.com/Crazypapa/Blog/blob/master/netty/netty入门5-基于流的处理.md)<br>
 #### netty进阶
 **1**：[netty进阶1-多线程并发编程]()<br>
