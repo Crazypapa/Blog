@@ -28,3 +28,31 @@ public class TimeClient {
   }
  }
 </pre>
+1.BootStrap 和 ServerBootstrap 类似,不过他是对非服务端的 channel 而言，比如客户端或者无连接传输模式的 channel。<br>
+2.如果你只指定了一个 EventLoopGroup，那他就会即作为一个 boss group ，也会作为一个workder group，尽管客户端不需要使用到 boss worker.<br>
+3.代替NioServerSocketChannel的是NioSocketChannel,这个类在客户端channel 被创建时使用。<br>
+4.不像在使用 ServerBootstrap 时需要用 childOption() 方法，因为客户端的 SocketChannel没有父亲。<br>
+5.我们用 connect() 方法代替了 bind() 方法。<br>
+
+TimeClientHandler实现：
+<pre>
+import java.util.Date;
+public class TimeClientHandler extends ChannelInboundHandlerAdapter {
+  @Override
+  public void channelRead(ChannelHandlerContext ctx, Object msg) {
+    ByteBuf m = (ByteBuf) msg; // (1)
+    try {
+      long currentTimeMillis = (m.readUnsignedInt() - 2208988800L) * 1000L;
+      System.out.println(new Date(currentTimeMillis));
+      ctx.close();
+    } finally {
+      m.release();
+    }
+  } 
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    cause.printStackTrace();
+    ctx.close();
+  }
+}
+</pre>
