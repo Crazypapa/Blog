@@ -5,21 +5,20 @@ import io.netty.channel.ChannelHandlerContext;<br>
 import io.netty.channel.ChannelInboundHandlerAdapter;<br>
 
 /**
-* 处理服务端 channel.<br>
-*/<br>
+* 处理服务端 channel.
+*/
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)<br>
   @Override<br>
   public void channelRead(ChannelHandlerContext ctx, Object msg) { // (2)<br>
     // 默默地丢弃收到的数据
     ((ByteBuf) msg).release(); // (3)<br>
-    } <br>
-
+  } <br>
   @Override<br>
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) { // (4)<br>
     // 当出现异常就关闭连接<br>
     cause.printStackTrace();<br>
     ctx.close();<br>
-    }<br>
+  }<br>
 }<br>
 1.DiscardServerHandler 继承自 ChannelInboundHandlerAdapter，这个类实现了ChannelInboundHandler接口，ChannelInboundHandler 提供了许多事件处理的接口方法，然后你可以覆盖这些方法。现在仅仅只需要继承 ChannelInboundHandlerAdapter 类而不是你自己去实现接口方法。<br>
 2.这里我们覆盖了 chanelRead() 事件处理方法。每当从客户端收到新的数据时，这个方法会在收到消息时被调用，这个例子中，收到的消息的类型是 ByteBuf<br>
