@@ -1,6 +1,6 @@
 ## 简单实例-aTimeClient
 
-在Netty中,编写服务端和客户端最大的并且唯一不同的使用了不同的BootStrap和Channel的实现。<br>
+在Netty中,编写服务端和客户端最大的并且唯一不同的使用了不同的BootStrap和Channel的实现。请看一下下面的代码：<br>
 <pre>
 public class TimeClient {
   public static void main(String[] args) throws Exception {
@@ -16,15 +16,15 @@ public class TimeClient {
         @Override
         public void initChannel(SocketChannel ch) throws Exception {
           ch.pipeline().addLast(new TimeClientHandler());
-      }
-    });
-    // 启动客户端
-    ChannelFuture f = b.connect(host, port).sync(); // (5)
-    // 等待连接关闭
-    f.channel().closeFuture().sync();
-  } finally {
-    workerGroup.shutdownGracefully();
-  }
+        }
+      });
+      // 启动客户端
+      ChannelFuture f = b.connect(host, port).sync(); // (5)
+      // 等待连接关闭
+      f.channel().closeFuture().sync();
+    } finally {
+      workerGroup.shutdownGracefully();
+    }
   }
  }
 </pre>
