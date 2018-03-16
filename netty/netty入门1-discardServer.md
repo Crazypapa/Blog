@@ -1,4 +1,4 @@
-###简单服务器实例：discardServer
+### 简单服务器实例：discardServer
 参考来源于《netty-4-user-guide.pdf》
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
