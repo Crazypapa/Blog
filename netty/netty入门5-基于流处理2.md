@@ -1,4 +1,24 @@
 **The Second Solution**<br>
+现在将另外一个处理器插入到ChannelPipeline 里，应该在TimeClient里修改ChannelInitializer 的实现：<br>
+<pre>
+b.handler(new ChannelInitializer<SocketChannel>() {
+  @Override
+  public void initChannel(SocketChannel ch) throws Exception {
+    ch.pipeline().addLast(new TimeDecoder(), new TimeClientHandler());
+    }
+});
+</pre>
+还可以尝试使用更简单的解码类ReplayingDecoder。需要参考一下API文档来获取更多的信息。<br>
+<pre>
+public class TimeDecoder extends ReplayingDecoder<Void> {
+  @Override
+  protected void decode(
+    ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+      out.add(in.readBytes(4));
+  }
+}
+</pre>
+
 把一整个ChannelHandler拆分成多个模块以减少应用的复杂程度，比如把TimeClientHandler拆分成2个处理器：<br>
 1,TimeDecoder处理数据拆分的问题<br>
 2,TimeClientHandler原始版本的实现<br>
@@ -22,4 +42,3 @@ public class TimeDecoder extends ByteToMessageDecoder { // (1)
 4.如果在decode()方法里增加了一个对象到out对象里，这意味着解码器解码消息成功。ByteToMessageDecoder将会丢弃在累积缓冲里已经被读过的数据。<br>
 请记得不需要对多条消息调用decode()，ByteToMessageDecoder会持续调用decode()直到不放任何数据到out里。<br>
 
-现在将另外一个处理器插入到ChannelPipeline 里，应该在TimeClient里修改ChannelInitializer 的实现：<br>
