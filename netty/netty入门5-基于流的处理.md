@@ -41,6 +41,7 @@ ublic class TimeClientHandler extends ChannelInboundHandlerAdapter {
 **1**TimeDecoder 处理数据拆分的问题<br>
 **2**TimeClientHandler 原始版本的实现<br>
 Netty提供了一个可扩展的类，可以完成TimeDecoder的开发。<br>
+
 <pre>
 public class TimeDecoder extends ByteToMessageDecoder { // (1)
   @Override
@@ -66,7 +67,6 @@ public class TimeDecoder extends ByteToMessageDecoder { // (1)
     }
   });
 </pre>
-
 还可以尝试使用更简单的解码类ReplayingDecoder。需要参考一下API文档来获取更多的信息。<br>
 <pre>
 public class TimeDecoder extends ReplayingDecoder<Void> {
