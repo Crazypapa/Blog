@@ -32,6 +32,7 @@ ublic class TimeClientHandler extends ChannelInboundHandlerAdapter {
   }
 }
 </pre>
+
 1.ChannelHandler 有2个生命周期的监听方法：handlerAdded()和 handlerRemoved()。你可以完成任意初始化任务只要他不会被阻塞很长的时间。<br>
 2.首先，所有接收的数据都应该被累积在 buf 变量里。<br>
 3.然后，处理器必须检查 buf 变量是否有足够的数据，在这个例子中是4个字节，然后处理实际的业务逻辑。否则，Netty会重复调用channelRead() 当有更多数据到达直到4个字节的数据被积累。<br>
@@ -67,6 +68,7 @@ public class TimeDecoder extends ByteToMessageDecoder { // (1)
     }
   });
 </pre>
+
 还可以尝试使用更简单的解码类ReplayingDecoder。需要参考一下API文档来获取更多的信息。<br>
 <pre>
 public class TimeDecoder extends ReplayingDecoder<Void> {
@@ -77,3 +79,4 @@ public class TimeDecoder extends ReplayingDecoder<Void> {
   }
 }
 </pre>
+
