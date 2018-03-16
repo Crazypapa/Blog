@@ -23,21 +23,3 @@ public class TimeDecoder extends ByteToMessageDecoder { // (1)
 请记得不需要对多条消息调用decode()，ByteToMessageDecoder会持续调用decode()直到不放任何数据到out里。<br>
 
 现在将另外一个处理器插入到ChannelPipeline 里，应该在TimeClient里修改ChannelInitializer 的实现：<br>
-<pre>
-b.handler(new ChannelInitializer<SocketChannel>() {
-  @Override
-  public void initChannel(SocketChannel ch) throws Exception {
-    ch.pipeline().addLast(new TimeDecoder(), new TimeClientHandler());
-    }
-});
-</pre>
-还可以尝试使用更简单的解码类ReplayingDecoder。需要参考一下API文档来获取更多的信息。<br>
-<pre>
-public class TimeDecoder extends ReplayingDecoder<Void> {
-  @Override
-  protected void decode(
-    ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
-      out.add(in.readBytes(4));
-  }
-}
-</pre>
