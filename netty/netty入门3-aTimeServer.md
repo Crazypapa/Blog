@@ -1,26 +1,28 @@
 ## 简单实例-aTimerServer
 
 实现TimeServer，我们需要覆盖 channelActive() 方法，下面的就是实现的内容：<br>
-public class TimeServerHandler extends ChannelInboundHandlerAdapter {<br>
-  @Override<br>
-  public void channelActive(final ChannelHandlerContext ctx) { // (1)<br>
-  final ByteBuf time = ctx.alloc().buffer(4); // (2)<br>
-  time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));<br>
-  final ChannelFuture f = ctx.writeAndFlush(time); // (3)<br>
-  f.addListener(new ChannelFutureListener() {<br>
-    @Override<br>
-    public void operationComplete(ChannelFuture future) {<br>
-    assert f == future;<br>
-    ctx.close();<br>
-  }<br>
-  }); // (4)<br>
-} <br>
-@Override<br>
-public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {<br>
-  cause.printStackTrace();<br>
-  ctx.close();<br>
-  }<br>
-}<br>
+<pre>
+public class TimeServerHandler extends ChannelInboundHandlerAdapter {
+  @Override
+  public void channelActive(final ChannelHandlerContext ctx) { // (1)
+  final ByteBuf time = ctx.alloc().buffer(4); // (2)
+  time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
+  final ChannelFuture f = ctx.writeAndFlush(time); // (3)
+  f.addListener(new ChannelFutureListener() {
+    @Override
+    public void operationComplete(ChannelFuture future) {
+      assert f == future;
+      ctx.close();
+      }
+    }); // (4)
+  } 
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    cause.printStackTrace();
+    ctx.close();
+   }
+}
+</pre>
 1.channelActive() 方法将会在连接被建立并且准备进行通信时被调用。因此让我们在这个方法里完成一个代表当前时间的32位整数消息的构建工作。<br>
 2.为了发送一个新的消息，我们需要分配一个包含这个消息的新的缓冲。因为我们需要写入一个32位的整数，因此我们需要一个至少有4个字节的 ByteBuf。通过
 ChannelHandlerContext.alloc() 得到一个当前的ByteBufAllocator，然后分配一个新的缓冲。<br>
